@@ -12,6 +12,11 @@ RUN apt-get -y install wget
 
 RUN apt-get -y install openjdk-8-jdk
 
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" | tee tee /etc/apt/sources.list.d/bazel.list
+RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add -
+RUN apt-get update && apt-get -y install bazel
+RUN apt-get upgrade -y bazel
+
 RUN wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
 RUN echo "deb http://pkg.jenkins.io/debian-stable binary/" | tee /etc/apt/sources.list.d/jenkins.list
 RUN apt-get update
